@@ -13,69 +13,62 @@ import {searchFor} from '../utils/fetcher';
 import {debounce} from 'lodash';
 
 export default class Main extends Component {
-   constructor(props) {
-        super(props);
-        const dataSource = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2,
-        });
-       this.state = {artists: dataSource};
-    
+  constructor(props) {
+    super(props);
+    const dataSource = new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2,
+    });
+   this.state = {artists: dataSource};
 }
 
 renderRow = ( artist , sId , id) => {
-    const { navigator } = this.props;
-    const ARTIST_STATE = {
-        id: 'ARTIST_DETAIL',
-        title: artist.name,
-        url: artist.external_urls.spotify,
-    }
-    
-    const imageUrl = artist.images[0] ? artist.images[0].url : null;
- return(
-     <ListItem index={id}
-        text={artist.name}
-        imageUrl={imageUrl}
-        navState={ ARTIST_STATE }
-        navigator= { navigator }
-        />
- );
+  const { navigator } = this.props;
+  const ARTIST_STATE = {
+    id: 'ARTIST_DETAIL',
+    title: artist.name,
+    url: artist.external_urls.spotify,
+  }
+  const imageUrl = artist.images[0] ? artist.images[0].url : null;
+  return(
+    <ListItem 
+      index={ id }
+      text={ artist.name }
+      imageUrl={ imageUrl }
+      navState={ ARTIST_STATE }
+      navigator= { navigator }
+    />
+  );
 };
 
 render(){
-       const { artists } = this.state;
-
-        return(
-            <View style={styles.container}>
-               <StatusBar barStyle='light-content' />
-               <TextInput 
-                style={styles.searchBox} 
-                onChangeText={this.makeQuery}
-              />
-               <ListView 
-                  dataSource={ artists }
-                  style={ styles.listView }
-                  renderRow={ this.renderRow }
-              />
-            </View>
-        );
-    }
-
+  const { artists } = this.state;
+  return(
+    <View style={styles.container}>
+      <StatusBar barStyle='light-content' />
+      <TextInput 
+      style={styles.searchBox} 
+      onChangeText={this.makeQuery}
+      />
+      <ListView 
+        dataSource={ artists }
+        style={ styles.listView }
+        renderRow={ this.renderRow }
+      />
+    </View>
+  );
+  }
     makeQuery = debounce(query=> {
-        searchFor(query)
-        .then(artists => {
-          this.setState({
-            artists: this.state.artists.cloneWithRows(artists),
-          });
-        })
-        .catch((error) => {
-          throw error;
+      searchFor(query)
+      .then(artists => {
+        this.setState({
+          artists: this.state.artists.cloneWithRows(artists),
         });
+      })
+      .catch((error) => {
+        throw error;
+      });
     },400);
 }
-
-Main.probTypes = {
- navigator: React.PropTypes.object,
-};
 
 const styles = StyleSheet.create({
     container:{
@@ -87,11 +80,11 @@ const styles = StyleSheet.create({
     },
     searchBox: {
       height: 40,
-      borderColor: 'black',
+      borderColor: '#C0C0C0',
       borderWidth: 2,
       margin: 16,
       paddingLeft: 10,
-      fontWeight: '800',
+      fontWeight: '400',
     },
     row: {
       margin: 16,
@@ -101,3 +94,5 @@ const styles = StyleSheet.create({
       alignSelf: 'stretch'
     },
 });
+
+Main.probTypes = { navigator: React.PropTypes.object,};

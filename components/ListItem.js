@@ -24,13 +24,13 @@ return (
   <TouchableOpacity
     underlayColor={'gray'}
     onPress={()=> navigator.push(navState)}
-  >
-    <FadeInView delay= {index * 25}>
-      <View style={styles.mediaObject}>
-        <Image source={image} style={styles.image}/>
-        <Text style={styles.text}> {text} </Text>
-      </View>
-    </FadeInView>
+    >
+      <FadeInView delay= {index * 25}>
+        <View style={styles.mediaObject}>
+          <Image source={image} style={styles.image}/>
+          <Text style={styles.text}> {text} </Text>
+        </View>
+      </FadeInView>
   </TouchableOpacity>
 );
 };
@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
   },
   image: {
     backgroundColor: 'gray',
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     marginRight: 16,
     paddingLeft: 10,
   },

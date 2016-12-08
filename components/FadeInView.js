@@ -27,7 +27,7 @@ export default class FadeInView extends Component {
       </Animated.View>
    );
   }
- }
+}
 
 FadeInView.propTypes = {
   children: React.PropTypes.object,
